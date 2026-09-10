@@ -124,9 +124,10 @@ void TopoSystemGpu::Load() {
   for (uint32_t i = 0; i < numGpus; ++i) {
     for (uint32_t j = i; j < numGpus; ++j) {
       if (i == j) continue;
+      amdsmi_link_type_t link_type = {};
       amdsmi_p2p_capability_t cap = {};
-      ROCM_SMI_CHECK(amdsmi_topo_get_p2p_status(handles[i], handles[j], &cap));
-      if (!cap.is_iolink_coherent && !cap.is_iolink_atomics_supported) continue;
+      ROCM_SMI_CHECK(amdsmi_topo_get_p2p_status(handles[i], handles[j], &link_type, &cap));
+      if (!cap.is_iolink_coherent && !cap.is_iolink_atomics_32bit && !cap.is_iolink_atomics_64bit) continue;
 
       TopoNodeGpuP2pLink* p2p = new TopoNodeGpuP2pLink();
       ROCM_SMI_CHECK(amdsmi_topo_get_link_type(handles[i], handles[j], &p2p->hops, &p2p->type));
