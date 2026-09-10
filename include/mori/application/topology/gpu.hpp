@@ -27,7 +27,7 @@
 
 #include "mori/application/topology/node.hpp"
 #include "mori/application/topology/pci.hpp"
-#include "rocm_smi/rocm_smi.h"
+#include "amd_smi/amdsmi.h"
 
 namespace mori {
 namespace application {
@@ -42,7 +42,7 @@ class TopoNodeGpuP2pLink : public TopoNode {
   ~TopoNodeGpuP2pLink() = default;
 
  public:
-  RSMI_IO_LINK_TYPE type;
+  uint32_t type;
   uint64_t hops{0};
   uint64_t weight{0};
 

@@ -30,7 +30,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "rocm_smi/rocm_smi.h"
+#include "amd_smi/amdsmi.h"
 
 namespace mori {
 namespace application {
@@ -81,15 +81,15 @@ namespace application {
     }                                                                                             \
   } while (0)
 
-#define ROCM_SMI_CHECK(stmt)                                                          \
-  do {                                                                                \
-    rsmi_status_t result = (stmt);                                                    \
-    if (RSMI_STATUS_SUCCESS != result) {                                              \
-      const char* msg;                                                                \
-      rsmi_status_string(result, &msg);                                               \
-      fprintf(stderr, "[%s:%d] rocm smi failed with %s \n", __FILE__, __LINE__, msg); \
-      exit(-1);                                                                       \
-    }                                                                                 \
+#define ROCM_SMI_CHECK(stmt)                                                              \
+  do {                                                                                    \
+    amdsmi_status_t result = (stmt);                                                      \
+    if (AMDSMI_STATUS_SUCCESS != result) {                                                \
+      const char* msg;                                                                    \
+      amdsmi_status_code_to_string(result, &msg);                                         \
+      fprintf(stderr, "[%s:%d] amd smi failed with %s \n", __FILE__, __LINE__, msg);      \
+      exit(-1);                                                                           \
+    }                                                                                     \
   } while (0)
 
 }  // namespace application
