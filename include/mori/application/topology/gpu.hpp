@@ -42,7 +42,7 @@ class TopoNodeGpuP2pLink : public TopoNode {
   ~TopoNodeGpuP2pLink() = default;
 
  public:
-  uint32_t type;
+  amdsmi_link_type_t type;
   uint64_t hops{0};
   uint64_t weight{0};
 
